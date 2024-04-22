@@ -19,7 +19,7 @@ def extract_url(file_path):
                     modification_time = os.path.getmtime(file_path)
                     formatted_creation = datetime.fromtimestamp(creation_time).strftime("%Y%m%d%H%M%S")
                     formatted_modification = datetime.fromtimestamp(modification_time).strftime("%Y%m%d%H%M%S")
-                    print(url, formatted_creation, formatted_modification)
+                    print("URL Processed")
                     return url, formatted_creation, formatted_modification
     except FileNotFoundError:
     # Handle potential file not found error (optional)
@@ -27,7 +27,7 @@ def extract_url(file_path):
         return None, None, None  # Indicate error or file not found
     
 
-
+foldername = (" ") 
 def get_path(directory):
   """
   Retrieves creation and modification timestamps for a directory.
@@ -44,7 +44,7 @@ def get_path(directory):
     print(f"Error: Directory not found: {directory}")
     return None, None, None
 
-  foldername = (" ") 
+  
   creation_time = stat_result.st_ctime
   modification_time = stat_result.st_mtime
   folder_creation = datetime.fromtimestamp(creation_time).strftime("%Y%m%d%H%M%S")
@@ -58,40 +58,16 @@ def get_path(directory):
 
 # Example usage
 
+dirname = os.path.basename(directory_path)
 
-
-html_content = """
+html_content = f"""
 <!DOCTYPE NETSCAPE-Bookmark-file-1>
 <!-- This is an automatically generated file.
      It will be read and overwritten.
      DO NOT EDIT! -->
 <META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=UTF-8">
+<TITLE>{dirname}</TITLE>
 """
-
-
-'''
-def extract_creation():
-  # Open the file for reading with UTF-8 encoding
-    if os.path.exists(directory_path):
-    # Get the creation time in seconds since epoch
-        directory_creation = os.path.getctime(directory_path)
-        formatted_creation = datetime.fromtimestamp(directory_creation)
-        dircreation = formatted_creation.strftime("%Y%m%d%H%M%S")
-    return dircreation
-
-dircre = extract_creation()
-
-def extract_modification():
-  # Open the file for reading with UTF-8 encoding
-    if os.path.exists(directory_path):
-    # Get the creation time in seconds since epoch
-        directory_modification = os.path.getmtime(directory_path)
-        formatted_modification = datetime.fromtimestamp(directory_modification)
-        dirmodification = formatted_modification.strftime("%Y%m%d%H%M%S")
-    return dirmodification
-
-dirmod = extract_modification()
-'''
 
 
 
@@ -102,7 +78,7 @@ with open(filecreate, "w") as file:  # Open the file in write mode
 # Create the filename with full path
 filecreate = f"{directory_path}/my_file.html"
 # Get base directory path
-dirname = os.path.basename(directory_path)
+
 
 #now = datetime.now()
 #add_date = now.strftime("%Y%m%d%H%M%S")
@@ -124,13 +100,7 @@ def create_folder_entry(folder_creation, folder_modification, foldername):
     if foldername:
         return f"""<DT><H3 ADD_DATE="{folder_creation}" LAST_MODIFIED="{folder_modification}">{foldername}</H3>\n"""
 
-'''
-def loop_through_directories(directory_path):
-    for root, directories, files in os.walk(directory_path):
-    # Process potential shortcut files in the current directory
-        for file in files:
-            
-'''
+
 
 
 
@@ -175,25 +145,31 @@ print("HTML file created successfully in the specified directory!")
 file = open("my_file.html", "a")
 file.write(appended_html)
 
+
+
 for root, directories, files in os.walk(directory_path):
     # Process the current directory
     print(f"Current directory: {root}")
+    foldername = f"{root}"  # Optionally, assign the full path to foldername
+    folder = os.path.basename(root)
+    directory = foldername
+    creation_time, modification_time, foldername = get_path(os.path.join(root, directory))
+        
+    
+    #created_folder = get_path
+    created_path = create_folder_entry(creation_time, modification_time, foldername)
+
+    with open("my_file.html", "a") as f:
+        try:
+            f.write(directory_tab + created_path)  # Write the HTML entry to the file
+            print("Path extracted.")
+        except IOError as e:
+            print(f"Error writing to file: {e}")  # Handle potential errors
 
     # Iterate over the subdirectories
     for directory in directories:
         print(f"Subdirectory: {directory}")
-        creation_time, modification_time, foldername = get_path(os.path.join(root, directory))
         
-        foldername = directory
-        #created_folder = get_path
-        created_path = create_folder_entry(creation_time, modification_time, foldername)
-
-        with open("my_file.html", "a") as f:
-            try:
-                f.write(directory_tab + created_path)  # Write the HTML entry to the file
-                print("Path extracted.")
-            except IOError as e:
-                print(f"Error writing to file: {e}")  # Handle potential errors
         
 
     # Iterate over the files
@@ -214,7 +190,7 @@ for root, directories, files in os.walk(directory_path):
                 with open("my_file.html", "a") as f:
                     try:
                         f.write(directory_tab + created_HTML)  # Write the HTML entry to the file
-                        print("Extracted URL:", url)
+                        print("URL and metadata written successfully")
                     except IOError as e:
                         print(f"Error writing to file: {e}")  # Handle potential errors
             else:
@@ -229,47 +205,3 @@ appended_html_2 = finish_entry
 file = open("my_file.html", "a")
 file.write(appended_html_2)
 file.close()
-
-
-"""def extract_url(url_file):
-    
-    with open(url_file, 'r', encoding='utf-8') as f:
-        contents = f.read()
-
-    parsed_command = shlex.split(contents)
-
-    if len(parsed_command) >= 2:
-        extracted_url = parsed_command[1]
-        print(f"Extracted URL: {extracted_url}")
-        return extracted_url
-    else:
-        print(f"No URL found in file: {url_file}")
-        return None
-    
-def generate_html(urls, output_file):
-    with open(output_file, 'w', encoding='utf-8') as f:
-        f.write("<html><body>\n")
-        for url in urls:
-            if url:
-                f.write(f"<a href='{url}'>{url}</a><br>\n")
-        f.write("</body></html>\n")
-
-def main():
-    folder_path = "C:\\Users\\juans\\Desktop\\pyt\\Main"
-    urls = []
-    try:
-        for dirpath, _, filenames in os.walk(folder_path):
-            for filename in filenames:
-                if filename.endswith(".url"):
-                    file_path = os.path.join(dirpath, filename)
-                    extracted_url = extract_url(file_path)
-                    urls.append(extracted_url)
-    except (IOError, OSError) as e:
-        print(f"An error ocurred while processing files: {e}")
-    except ImportError as e:
-        print(f"An error ocurred while processing files: {e}")
-
-    output_file = "extracted_urls.html"
-    generate_html(urls, output_file)
-
-    print(f"Extracted URLs written to: {output_file}")"""
