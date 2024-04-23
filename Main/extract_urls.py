@@ -59,6 +59,7 @@ def get_path(directory):
 # Example usage
 
 dirname = os.path.basename(directory_path)
+bookmarks = ("Bookmarks")
 
 html_content = f"""
 <!DOCTYPE NETSCAPE-Bookmark-file-1>
@@ -67,6 +68,7 @@ html_content = f"""
      DO NOT EDIT! -->
 <META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=UTF-8">
 <TITLE>{dirname}</TITLE>
+<H1>{bookmarks}</H1>
 """
 
 
@@ -126,8 +128,8 @@ tabs = get_tabs(level)
 directory_tab = (f"{tabs}")
 
 
-existing_html = f"<TITLE>{dirname}</TITLE>\n<H1>Bookmarks</H1>\n<DL><p>\n    "
-third_header = f'<DT><H3 ADD_DATE="dircre" LAST_MODIFIED="dirmod" PERSONAL_TOOLBAR_FOLDER="true">Bookmarks</H3>\n    '
+#existing_html = f"<TITLE>{dirname}</TITLE>\n<H1>Bookmarks</H1>\n<DL><p>\n    "
+#third_header = f'<DT><H3 ADD_DATE="dircre" LAST_MODIFIED="dirmod" PERSONAL_TOOLBAR_FOLDER="true">Bookmarks</H3>\n    '
 new_entry = '<DL><p>\n'
 
 
@@ -136,8 +138,8 @@ new_entry = '<DL><p>\n'
 #entry_content = f'<DT><A HREF="{extracted_url}" ADD_DATE="">"{extracted_url}"</A>'
 #combined_entry = '' .join(text_parts)
 
-appended_html = existing_html + third_header + new_entry
-finish_entry = "\n</DL><p>"
+appended_html = new_entry
+finish_entry = "</DL><p>\n"
 
 
 print("HTML file created successfully in the specified directory!")
@@ -145,32 +147,43 @@ print("HTML file created successfully in the specified directory!")
 file = open("my_file.html", "a")
 file.write(appended_html)
 
-
+first_iteration = True
 
 for root, directories, files in os.walk(directory_path):
     # Process the current directory
     print(f"Current directory: {root}")
     foldername = f"{root}"  # Optionally, assign the full path to foldername
     folder = os.path.basename(root)
+    
     directory = foldername
     creation_time, modification_time, foldername = get_path(os.path.join(root, directory))
         
     
+    first_created_path = create_folder_entry(creation_time, modification_time, bookmarks)
     #created_folder = get_path
-    created_path = create_folder_entry(creation_time, modification_time, foldername)
+    created_path = create_folder_entry(creation_time, modification_time, folder)
 
     with open("my_file.html", "a") as f:
         try:
-            f.write(directory_tab + created_path)  # Write the HTML entry to the file
-            print("Path extracted.")
+            if first_iteration == True:
+            
+                f.write(directory_tab + first_created_path)
+                f.write(directory_tab + finish_entry)
+                f.write(directory_tab + created_path)  # Write the HTML entry to the file
+                f.write(directory_tab + finish_entry)
+            else:
+                f.write(directory_tab + created_path)  # Write the HTML entry to the file
+                f.write(directory_tab + finish_entry)
+
+            first_iteration = False
+
+            print("Path extracted and written.")
         except IOError as e:
             print(f"Error writing to file: {e}")  # Handle potential errors
 
     # Iterate over the subdirectories
-    for directory in directories:
-        print(f"Subdirectory: {directory}")
-        
-        
+ 
+
 
     # Iterate over the files
     for file in files:
