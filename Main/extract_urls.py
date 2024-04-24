@@ -116,16 +116,9 @@ def get_tabs(level):
   Returns:
       str: A string containing the desired number of tabs.
   """
-  return "\t" * level
+  return "\t" * current_level
 
-# Example usage inside your loop
-current_directory, subdirectories, files = os.walk(directory_path).__next__()
-level = current_directory.count(os.sep) - 1  # Get subdirectory level from path
-tabs = get_tabs(level)
 
-# Example usage in your HTML file
-
-directory_tab = (f"{tabs}")
 
 
 #existing_html = f"<TITLE>{dirname}</TITLE>\n<H1>Bookmarks</H1>\n<DL><p>\n    "
@@ -148,10 +141,20 @@ file = open("my_file.html", "a")
 file.write(appended_html)
 
 first_iteration = True
+level = directory_path.count(os.sep)  # Initial indentation level 
+previous_level = 0
 
 for root, directories, files in os.walk(directory_path):
     # Process the current directory
-    print(f"Current directory: {root}")
+    
+    
+      
+    
+    current_level = 1 + root.count(os.sep) - level
+    
+ 
+    print(f"Directory level: {current_level}, Current directory: {root}")  # Example usage
+
     foldername = f"{root}"  # Optionally, assign the full path to foldername
     folder = os.path.basename(root)
     
@@ -163,6 +166,11 @@ for root, directories, files in os.walk(directory_path):
     #created_folder = get_path
     created_path = create_folder_entry(creation_time, modification_time, folder)
 
+    tabs = get_tabs(current_level)
+    directory_tab = (f"{tabs}")
+
+    
+
     with open("my_file.html", "a") as f:
         try:
             if first_iteration == True:
@@ -173,16 +181,23 @@ for root, directories, files in os.walk(directory_path):
                 f.write(directory_tab + finish_entry)
             else:
                 f.write(directory_tab + created_path)  # Write the HTML entry to the file
-                f.write(directory_tab + finish_entry)
+
+            if current_level <= previous_level:
+                            f.write(directory_tab + finish_entry)
+                            print("Terminated indentation level") 
+                
+            # Iterate over the subdirectories
+            previous_level = current_level  # Update for next iteration
+            
 
             first_iteration = False
+            level0 = level + 1  # Increase for subdirectories
 
             print("Path extracted and written.")
         except IOError as e:
             print(f"Error writing to file: {e}")  # Handle potential errors
 
-    # Iterate over the subdirectories
- 
+    
 
 
     # Iterate over the files
@@ -203,7 +218,7 @@ for root, directories, files in os.walk(directory_path):
                 with open("my_file.html", "a") as f:
                     try:
                         f.write(directory_tab + created_HTML)  # Write the HTML entry to the file
-                        print("URL and metadata written successfully")
+                        print("URL and metadata written successfully")    
                     except IOError as e:
                         print(f"Error writing to file: {e}")  # Handle potential errors
             else:
@@ -212,6 +227,7 @@ for root, directories, files in os.walk(directory_path):
             # Remove whitespace from the end of the URL
         else:
             print(f"Skipping file: {file}")
+
 #loop_through_directories(directory_path)
 
 appended_html_2 = finish_entry
