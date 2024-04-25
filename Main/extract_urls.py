@@ -171,7 +171,11 @@ for root, directories, files in os.walk(directory_path):
             
             while current_level <= previous_level:
                             current_level -=  1
+
+                            
+                            tabs = get_tabs(current_level)
                             directory_tab = (f"{tabs}")
+                            
                             f.write(directory_tab + finish_entry)
                             print("Terminated indentation level") 
                             if current_level == 0:
@@ -180,9 +184,8 @@ for root, directories, files in os.walk(directory_path):
             if first_iteration == True:
             
                 f.write(directory_tab + first_created_path)
-                f.write(directory_tab + finish_entry)
                 f.write(directory_tab + created_path)  # Write the HTML entry to the file
-                f.write(directory_tab + finish_entry)
+
             else:
                 f.write(directory_tab + created_path)  # Write the HTML entry to the file
                 f.write(directory_tab + start_entry)
