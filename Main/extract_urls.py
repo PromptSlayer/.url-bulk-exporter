@@ -123,7 +123,7 @@ def get_tabs(level):
 
 #existing_html = f"<TITLE>{dirname}</TITLE>\n<H1>Bookmarks</H1>\n<DL><p>\n    "
 #third_header = f'<DT><H3 ADD_DATE="dircre" LAST_MODIFIED="dirmod" PERSONAL_TOOLBAR_FOLDER="true">Bookmarks</H3>\n    '
-new_entry = '<DL><p>\n'
+
 
 
 
@@ -131,14 +131,13 @@ new_entry = '<DL><p>\n'
 #entry_content = f'<DT><A HREF="{extracted_url}" ADD_DATE="">"{extracted_url}"</A>'
 #combined_entry = '' .join(text_parts)
 
-appended_html = new_entry
+
 finish_entry = "</DL><p>\n"
 
 
-print("HTML file created successfully in the specified directory!")
+print("HTML file created successfully!")
 
-file = open("my_file.html", "a")
-file.write(appended_html)
+
 
 first_iteration = True
 level = directory_path.count(os.sep)  # Initial indentation level 
@@ -146,10 +145,6 @@ previous_level = 0
 
 for root, directories, files in os.walk(directory_path):
     # Process the current directory
-    
-    
-      
-    
     current_level = 1 + root.count(os.sep) - level
     
  
@@ -167,12 +162,21 @@ for root, directories, files in os.walk(directory_path):
     created_path = create_folder_entry(creation_time, modification_time, folder)
 
     tabs = get_tabs(current_level)
-    directory_tab = (f"{tabs}")
-
     
+    start_entry = ("<DL><p>\n")
+    directory_tab = (f"{tabs}")
 
     with open("my_file.html", "a") as f:
         try:
+            
+            while current_level <= previous_level:
+                            current_level -=  1
+                            directory_tab = (f"{tabs}")
+                            f.write(directory_tab + finish_entry)
+                            print("Terminated indentation level") 
+                            if current_level == 0:
+                                break  # Exit the loop when current_level reaches 0
+            
             if first_iteration == True:
             
                 f.write(directory_tab + first_created_path)
@@ -181,24 +185,23 @@ for root, directories, files in os.walk(directory_path):
                 f.write(directory_tab + finish_entry)
             else:
                 f.write(directory_tab + created_path)  # Write the HTML entry to the file
+                f.write(directory_tab + start_entry)
 
-            if current_level <= previous_level:
-                            f.write(directory_tab + finish_entry)
-                            print("Terminated indentation level") 
+            
                 
             # Iterate over the subdirectories
             previous_level = current_level  # Update for next iteration
             
 
             first_iteration = False
-            level0 = level + 1  # Increase for subdirectories
 
             print("Path extracted and written.")
         except IOError as e:
             print(f"Error writing to file: {e}")  # Handle potential errors
 
     
-
+    #for directories in directory:
+        #something
 
     # Iterate over the files
     for file in files:
@@ -212,12 +215,13 @@ for root, directories, files in os.walk(directory_path):
             
             created_HTML = create_html_entry(url, creation_date, modification_date, filename)
             entry_content = created_HTML
+            one_tab = ("    ")
 
             if url:
                 url = url.rstrip()  # Only rstrip if URL is found
                 with open("my_file.html", "a") as f:
                     try:
-                        f.write(directory_tab + created_HTML)  # Write the HTML entry to the file
+                        f.write(directory_tab + one_tab + created_HTML)  # Write the HTML entry to the file
                         print("URL and metadata written successfully")    
                     except IOError as e:
                         print(f"Error writing to file: {e}")  # Handle potential errors
