@@ -69,6 +69,7 @@ html_content = f"""
 <META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=UTF-8">
 <TITLE>{dirname}</TITLE>
 <H1>{bookmarks}</H1>
+<DL><p>
 """
 
 
@@ -145,7 +146,7 @@ previous_level = 1
 
 for root, directories, files in os.walk(directory_path):
     # Process the current directory
-    current_level = 1 + root.count(os.sep) - level
+    current_level = 2 + root.count(os.sep) - level
     
     tabs = get_tabs(current_level)
 
@@ -177,23 +178,24 @@ for root, directories, files in os.walk(directory_path):
             
             if current_level == previous_level:
                 f.write(directory_tab + finish_entry)
-                
             else:
                 if current_level <= previous_level: 
-                    difference = current_level - previous_level  
-                    
+                    difference = previous_level - current_level
+                    print (f"current {current_level}")
                     current_level = previous_level
                     tabs = get_tabs(current_level)
                     directory_tab = (f"{tabs}")
- 
+                    
+                    
+
                     f.write(directory_tab + finish_entry) 
                     
 
                     while current_level <= previous_level:        
-                                    difference = previous_level - current_level
+                                    
                                     print(f"after {current_level}")
                                     print(f"after {previous_level}")
-                                    print(f"after {difference}")
+                                    print(f"difference {difference}")
 
                                     
 
@@ -207,15 +209,15 @@ for root, directories, files in os.walk(directory_path):
                                     
                                     f.write(directory_tab + finish_entry)
                                     print("Terminated indentation same level") 
-                                    if current_level == 0:
-                                        f.write(directory_tab + finish_entry)
+                                    if iteration == difference:
+                                        
                                         current_level = iteration
                                         print({iteration})
                                         break  # Exit the loop when current_level reaches 0
                 
             if first_iteration == True:
             
-                f.write(directory_tab + first_created_path)
+                f.write("    " + first_created_path)
                 f.write(directory_tab + created_path)  # Write the HTML entry to the file
 
             else:
@@ -267,9 +269,20 @@ for root, directories, files in os.walk(directory_path):
         else:
             print(f"Skipping file: {file}")
 
-#loop_through_directories(directory_path)
+current_level = current_level + 1
+with open("my_file.html", "a") as f:
+    for i in range(current_level + 1):
+        print(f"current level is: {current_level}")               
+        tabs = get_tabs(current_level)
+        directory_tab = (f"{tabs}")
+        f.write(directory_tab + finish_entry)
 
-appended_html_2 = finish_entry
-file = open("my_file.html", "a")
-file.write(appended_html_2)
-file.close()
+        current_level -=  1
+
+        iteration += 1
+        
+        
+        print("Terminated indentation same level") 
+        if current_level == -1:
+            print({iteration})
+            break  # Exit the loop when current_level reaches 0
