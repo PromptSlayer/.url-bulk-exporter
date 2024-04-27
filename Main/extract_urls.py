@@ -141,12 +141,15 @@ print("HTML file created successfully!")
 
 first_iteration = True
 level = directory_path.count(os.sep)  # Initial indentation level 
-previous_level = 0
+previous_level = 1
 
 for root, directories, files in os.walk(directory_path):
     # Process the current directory
     current_level = 1 + root.count(os.sep) - level
     
+    tabs = get_tabs(current_level)
+
+    directory_tab = (f"{tabs}")
  
     print(f"Directory level: {current_level}, Current directory: {root}")  # Example usage
 
@@ -161,26 +164,55 @@ for root, directories, files in os.walk(directory_path):
     #created_folder = get_path
     created_path = create_folder_entry(creation_time, modification_time, folder)
 
-    tabs = get_tabs(current_level)
+    
     
     start_entry = ("<DL><p>\n")
-    directory_tab = (f"{tabs}")
+    
 
+    iteration = 0
+    print(f"before {current_level}")
+    print(f"before {previous_level}")
     with open("my_file.html", "a") as f:
         try:
             
-            while current_level <= previous_level:
-                            current_level -=  1
+            if current_level == previous_level:
+                f.write(directory_tab + finish_entry)
+                
+            else:
+                if current_level <= previous_level: 
+                    difference = current_level - previous_level  
+                    
+                    current_level = previous_level
+                    tabs = get_tabs(current_level)
+                    directory_tab = (f"{tabs}")
+ 
+                    f.write(directory_tab + finish_entry) 
+                    
 
-                            
-                            tabs = get_tabs(current_level)
-                            directory_tab = (f"{tabs}")
-                            
-                            f.write(directory_tab + finish_entry)
-                            print("Terminated indentation level") 
-                            if current_level == 0:
-                                break  # Exit the loop when current_level reaches 0
-            
+                    while current_level <= previous_level:        
+                                    difference = previous_level - current_level
+                                    print(f"after {current_level}")
+                                    print(f"after {previous_level}")
+                                    print(f"after {difference}")
+
+                                    
+
+                                    current_level -=  1
+
+                                    
+                                    tabs = get_tabs(current_level)
+                                    directory_tab = (f"{tabs}")
+
+                                    iteration += 1
+                                    
+                                    f.write(directory_tab + finish_entry)
+                                    print("Terminated indentation same level") 
+                                    if current_level == 0:
+                                        f.write(directory_tab + finish_entry)
+                                        current_level = iteration
+                                        print({iteration})
+                                        break  # Exit the loop when current_level reaches 0
+                
             if first_iteration == True:
             
                 f.write(directory_tab + first_created_path)
