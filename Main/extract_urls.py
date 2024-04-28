@@ -1,12 +1,23 @@
 import os
 from datetime import datetime
-
+import pathlib
 
 print(os.getcwd())
-SHORTCUT = "C:\\Users\\juans\\Desktop\\pyt\\Primary\\test.url"
+
+raw_input = input("Enter path containing shortcuts:")
+
+path_dir: str = raw_input
+
+this_dir = path_dir.replace("\\", "\\\\")
+
+#new_s = path_dir.replace('/', '\\')
+#repr = representation ('\' as '\\')
+#print(new_s)
+
+print(this_dir)
 
 # Specify the desired directory path (replace with your actual path)
-directory_path = "C:\\Users\\juans\\Desktop\\pyt\\Primary"  # Use a forward slash (/) on all systems
+directory_path = this_dir  # Use a forward slash (/) on all systems
 file_path = directory_path
 
 def extract_url(file_path):
