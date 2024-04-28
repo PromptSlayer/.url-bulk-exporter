@@ -294,3 +294,9 @@ with open("my_file.html", "a") as f:
         if current_level == -1:
             
             break  # Exit the loop when current_level reaches 0
+
+script_dir = os.path.dirname(__file__)
+print("\n")
+print(f"File successfully created at path: {script_dir}")
+print("\n")
+
