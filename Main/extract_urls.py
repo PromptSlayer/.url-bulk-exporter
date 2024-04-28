@@ -10,9 +10,6 @@ path_dir: str = raw_input
 
 this_dir = path_dir.replace("\\", "\\\\")
 
-#new_s = path_dir.replace('/', '\\')
-#repr = representation ('\' as '\\')
-#print(new_s)
 
 print(this_dir)
 
@@ -182,8 +179,8 @@ for root, directories, files in os.walk(directory_path):
     
 
     iteration = 0
-    print(f"before {current_level}")
-    print(f"before {previous_level}")
+    
+    
     with open("my_file.html", "a") as f:
         try:
             
@@ -192,7 +189,7 @@ for root, directories, files in os.walk(directory_path):
             else:
                 if current_level <= previous_level: 
                     difference = previous_level - current_level
-                    print (f"current {current_level}")
+                    
                     current_level = previous_level
                     tabs = get_tabs(current_level)
                     directory_tab = (f"{tabs}")
@@ -204,9 +201,9 @@ for root, directories, files in os.walk(directory_path):
 
                     while current_level <= previous_level:        
                                     
-                                    print(f"after {current_level}")
-                                    print(f"after {previous_level}")
-                                    print(f"difference {difference}")
+                                    
+                                    
+                                    
 
                                     
 
@@ -219,11 +216,11 @@ for root, directories, files in os.walk(directory_path):
                                     iteration += 1
                                     
                                     f.write(directory_tab + finish_entry)
-                                    print("Terminated indentation same level") 
+                                    print("Terminated indentation") 
                                     if iteration == difference:
                                         
                                         current_level = iteration
-                                        print({iteration})
+                                        
                                         break  # Exit the loop when current_level reaches 0
                 
             if first_iteration == True:
@@ -293,7 +290,7 @@ with open("my_file.html", "a") as f:
         iteration += 1
         
         
-        print("Terminated indentation same level") 
+        print("Terminated indentation last level") 
         if current_level == -1:
-            print({iteration})
+            
             break  # Exit the loop when current_level reaches 0
