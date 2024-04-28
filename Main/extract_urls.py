@@ -4,7 +4,7 @@ import pathlib
 
 print(os.getcwd())
 
-raw_input = input("Enter path containing shortcuts:")
+raw_input = input("Enter path containing shortcuts: ")
 
 path_dir: str = raw_input
 
@@ -80,9 +80,9 @@ html_content = f"""
 <DL><p>
 """
 
+name_input = input("Enter name for the HTML file: ")
 
-
-filecreate = "my_file.html" # Creates a new file in the current directory
+filecreate = name_input + ".html" # Creates a new file in the current directory
 with open(filecreate, "w") as file:  # Open the file in write mode
     file.write(html_content)  # Write the HTML content to the file
 
@@ -290,7 +290,7 @@ with open("my_file.html", "a") as f:
         iteration += 1
         
         
-        print("Terminated indentation last level") 
+        print("Terminated indentation at level") 
         if current_level == -1:
             
             break  # Exit the loop when current_level reaches 0
