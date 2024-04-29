@@ -108,7 +108,7 @@ newfile = name_input + ".html" # Creates a new file in the current directory
 
 file_join = os.path.join(script_dir, newfile)
 
-with open(file_join, "w") as file:  # Open the file in write mode
+with open(file_join, "w", encoding='utf-8') as file:  # Open the file in write mode
     file.write(html_content)  # Write the HTML content to the file
 
 # Create the filename with full path
@@ -206,7 +206,7 @@ for root, directories, files in os.walk(directory_path):
     iteration = 0
     
     
-    with open(file_join, "a") as f:
+    with open(file_join, "a", encoding='utf-8') as f:
         try:
             
             if current_level == previous_level:
@@ -289,7 +289,7 @@ for root, directories, files in os.walk(directory_path):
 
             if url:
                 url = url.rstrip()  # Only rstrip if URL is found
-                with open(file_join, "a") as f:
+                with open(file_join, "a", encoding='utf-8') as f:
                     try:
                         f.write(directory_tab + one_tab + created_HTML)  # Write the HTML entry to the file
                         print("URL and metadata written successfully")    
@@ -303,7 +303,7 @@ for root, directories, files in os.walk(directory_path):
             print(f"Skipping file: {file}")
 
 current_level = current_level + 1
-with open(file_join, "a") as f:
+with open(file_join, "a", encoding='utf-8') as f:
     for i in range(current_level + 1):
         print(f"current level is: {current_level}")               
         tabs = get_tabs(current_level)
