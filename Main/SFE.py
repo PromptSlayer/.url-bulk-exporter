@@ -1,3 +1,18 @@
+'''
+Simple but useful script that exports web shortcut files (.url) stored in a directory into an importable .html file
+
+first standalone project,
+built with limited knowledge in a per-need basis, 
+since it doesn't seem to exist any utility alike.
+
+"I had lots of shortcut folders due to info management and knowledge work. Found out that dragging and dropping urls 
+directly to local folders can be more convenient in an effort/time expense and collection-sorting perspective in applications 
+where traditional storage methods may be lacking or inefficient at a larger scope, even when bookmark managers are present."
+
+- Purpose: To manage about years of accumulated, unsorted bookmark collections saving about months of dedication to just a couple days.
+'''
+
+
 import os
 from datetime import datetime
 
@@ -310,3 +325,4 @@ print("\n")
 print(f"File successfully created at path: {script_dir}")
 print("\n")
 
+# will probably laugh at this code later...
