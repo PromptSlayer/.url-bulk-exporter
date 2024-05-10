@@ -1,4 +1,4 @@
-# .url-bulk-exporter
+# .url-bulk-extractor
 
 A Python program that converts .url files in a directory into an importable HTML file for potential use in a web browser context.
 This is essentially a script that takes a path and writes target files metadata into a valid, importable HTML format.
