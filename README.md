@@ -13,8 +13,15 @@ It is a basic utility made for personal use, thus Windows-only.
 ```
 3. Navigate to the project directory in a Terminal (Powershell, CMD)
 4. Go to the Script's location of SFE.py
-5. Run the script using python e.g. "> python SFE.py"
-6. Enter prompted path and file name for the target .url files location
+5. Run the script using python e.g. 
+```bash
+   python sfe.py
+```
+6. Enter valid prompted path and file name for the target .url files location.
+Path example;
+```bash
+   C:\Windows\your-shortcuts-folder
+```
 7. Enjoy your generated file!
 
 
