@@ -11,9 +11,13 @@ It is a basic utility made for personal use, thus Windows-only.
 ```bash
    git clone https://github.com/PromptSlayer/.url-bulk-exporter
 ```
-3. Navigate to the project directory in a Terminal (Powershell, CMD)
+3. Navigate to the project directory in a Terminal (Powershell, CMD).
+Example;
+```bash
+   cd C:\Windows
+```
 4. Go to the Script's location of SFE.py
-5. Run the script using python e.g. 
+5. Run the script using python 
 ```bash
    python sfe.py
 ```
