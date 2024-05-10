@@ -11,15 +11,18 @@ It is a basic utility made for personal use, thus Windows-only.
 ```bash
    git clone https://github.com/PromptSlayer/.url-bulk-exporter
 ```
-3. Navigate to the project directory in a Terminal (Powershell, CMD).
+3. Open a Terminal with administrative privileges (Powershell, CMD).
+4. Go to the Script's location of SFE.py
 Example;
 ```bash
-   cd C:\Windows
+   cd C:\Windows\SFE\Main
 ```
-4. Go to the Script's location of SFE.py
 5. Run the script using python 
 ```bash
    python sfe.py
+```
+``bash
+   python .\sfe.py
 ```
 6. Enter valid prompted path and file name for the target .url files location.
 Path example;
