@@ -21,7 +21,7 @@ Example;
 ```bash
    python sfe.py
 ```
-``bash
+```bash
    python .\sfe.py
 ```
 6. Enter valid prompted path and file name for the target .url files location.
