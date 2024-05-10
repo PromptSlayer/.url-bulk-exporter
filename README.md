@@ -12,7 +12,7 @@ It is a basic utility made for personal use, thus Windows-only.
    git clone https://github.com/PromptSlayer/.url-bulk-exporter
 ```
 3. Navigate to the project directory in a Terminal (Powershell, CMD)
-4. Go to the Script's location of url_exporter.py
+4. Go to the Script's location of SFE.py
 5. Run the script using python e.g. "> python SFE.py"
 6. Enter prompted path and file name for the target .url files location
 7. Enjoy your generated file!
