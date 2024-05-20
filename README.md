@@ -9,13 +9,13 @@ It is a basic utility made for personal use, thus Windows-only.
 1. Make sure to download and install latest version of Python3
 2. Clone the repository:
 ```bash
-   git clone https://github.com/PromptSlayer/.url-bulk-exporter
+   git clone https://github.com/PromptSlayer/Shortcut-Files-Exporter
 ```
 3. Open a Terminal with administrative privileges (Powershell, CMD).
 4. Go to the Script's location of SFE.py
 Example;
 ```bash
-   cd C:\Windows\SFE\Main
+   cd C:\Users\Name\SFE\Main
 ```
 5. Run the script using python 
 ```bash
@@ -27,7 +27,7 @@ Example;
 6. Enter valid prompted path and file name for the target .url files location.
 Path example;
 ```bash
-   C:\Windows\your-shortcuts-folder
+   C:\Users\Name\your-shortcuts-folder
 ```
 7. Enjoy your generated file!
 
